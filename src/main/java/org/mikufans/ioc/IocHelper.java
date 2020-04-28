@@ -1,12 +1,14 @@
 package org.mikufans.ioc;
 
+import com.mikufans.Test;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.mikufans.core.ClassHelper;
 import org.mikufans.core.exception.InitError;
+import org.mikufans.ioc.annotation.Autowired;
 import org.mikufans.ioc.annotation.Impl;
-import org.mikufans.ioc.annotation.Inject;
 
+import javax.servlet.annotation.WebServlet;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
@@ -30,10 +32,11 @@ public class IocHelper
                 Field[] beanFields = beanClass.getDeclaredFields();
                 if (!ArrayUtils.isEmpty(beanFields))
                 {
+                    //类成员是否被注入
                     for (Field beanFiled : beanFields)
                     {
                         //依赖注入进行赋值
-                        if (beanFiled.isAnnotationPresent(Inject.class))
+                        if (beanFiled.isAnnotationPresent(Autowired.class))
                         {
                             Class<?> interfaceClass = beanFiled.getType();
                             Class<?> implClass = findImplClass(interfaceClass);
@@ -47,8 +50,8 @@ public class IocHelper
                                     beanFiled.setAccessible(true);
                                     //赋于初始值
                                     beanFiled.set(beanInstance, implInstance);
-                                }
-                                else throw new InitError("依赖注入出错！" + beanClass.getSimpleName());
+                                    System.out.println("beanFiled:" + beanFiled.getType());
+                                } else throw new InitError("依赖注入出错！" + beanClass.getSimpleName());
                             }
                         }
                     }

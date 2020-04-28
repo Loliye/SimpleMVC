@@ -2,6 +2,7 @@ package org.mikufans.ioc;
 
 import org.mikufans.core.ClassHelper;
 import org.mikufans.ioc.annotation.Bean;
+import org.mikufans.mvc.annotation.Controller;
 import sun.nio.ch.IOStatus;
 
 import java.io.ObjectInputStream;
@@ -19,16 +20,14 @@ public class BeanHelper
     //初始化ioc容器
     static
     {
-        //todo  扫描包 service controller autowired resource
+        //todo  扫描包 service controller mapper
         try
         {
             List<Class<?>> classList = ClassHelper.getClassList();
             for (Class<?> cls : classList)
             {
-                System.out.println(cls.getName());
-                if (cls.isAnnotationPresent(Bean.class))
+                if (cls.isAnnotationPresent(Bean.class)||cls.isAnnotationPresent(Controller.class))
                 {
-                    System.out.println(cls.getName() + "2");
                     Object object = cls.newInstance();
                     beanMap.put(cls, object);
                 }

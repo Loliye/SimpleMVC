@@ -2,6 +2,7 @@ package org.mikufans.core.impl;
 
 import org.mikufans.core.ClassScanner;
 import org.mikufans.core.impl.support.ClassTemplate;
+import org.mikufans.core.impl.support.SupperClassTemplate;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -37,12 +38,14 @@ public class StandardClassScanner implements ClassScanner
     @Override
     public List<Class<?>> getClassListBySuper(String packageName, Class<?> superClass)
     {
-        return null;
+        return new SupperClassTemplate(packageName, superClass)
+        {
+            @Override
+            public boolean checkAddClass(Class<?> cls)
+            {
+                return superClass.isAssignableFrom(cls) && !superClass.equals(cls);
+            }
+        }.getClassList();
     }
 
-    @Override
-    public String toString()
-    {
-        return "haha";
-    }
 }

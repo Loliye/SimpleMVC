@@ -42,7 +42,6 @@ public class InstanceFactory
         String implClassName = ConfigHelper.getString(cacheKey);
         if (StringUtils.isEmpty(implClassName))
             implClassName = defaultImplClass.getName();
-        System.out.println(implClassName);
         T instance = null;
         try
         {
@@ -60,11 +59,12 @@ public class InstanceFactory
         return instance;
     }
 
-
-    //todo
+    /**
+     * 获取类扫描器
+     * @return
+     */
     public static ClassScanner getClassScanner()
     {
         return getInstance(CLASS_SCANNER, StandardClassScanner.class);
-        //        return new StandardClassScanner();
     }
 }
