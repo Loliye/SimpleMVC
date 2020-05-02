@@ -61,10 +61,14 @@ public class InstanceFactory
 
     /**
      * 获取类扫描器
+     *
      * @return
      */
     public static ClassScanner getClassScanner()
     {
         return getInstance(CLASS_SCANNER, StandardClassScanner.class);
     }
+
+    public static
+
 }

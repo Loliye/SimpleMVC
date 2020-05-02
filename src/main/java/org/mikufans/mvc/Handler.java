@@ -5,18 +5,18 @@ import java.util.regex.Matcher;
 
 /**
  * 处理request 请求相关的信息
- * 用户映射前端请求
+ * 映射前端请求
  */
 public class Handler
 {
     private Class<?> requestClass;
-    private Method reqeustMethod;
+    private Method requestMethod;
     private Matcher requestPathMatcher;
 
     public Handler(Class<?> requestClass, Method reqeustMethod)
     {
         this.requestClass = requestClass;
-        this.reqeustMethod = reqeustMethod;
+        this.requestMethod = reqeustMethod;
     }
 
     public Class<?> getRequestClass()
@@ -26,7 +26,7 @@ public class Handler
 
     public Method getReqeustMethod()
     {
-        return reqeustMethod;
+        return requestMethod;
     }
 
     public Matcher getRequestPathMatcher()

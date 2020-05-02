@@ -3,12 +3,12 @@ package org.mikufans.mvc;
 /**
  * 封装request请求信息
  */
-public class Reqeuster
+public class Requester
 {
     private String requestMethod;
     private String requestPath;
 
-    public Reqeuster(String requestMethod, String requestPath)
+    public Requester(String requestMethod, String requestPath)
     {
         this.requestMethod = requestMethod;
         this.requestPath = requestPath;
