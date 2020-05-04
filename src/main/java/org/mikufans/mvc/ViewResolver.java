@@ -16,5 +16,5 @@ public interface ViewResolver
      * @param response
      * @param methodResult
      */
-    void resolvView(HttpServletRequest request, HttpServletResponse response,Object methodResult);
+    void resolveView(HttpServletRequest request, HttpServletResponse response,Object methodResult);
 }

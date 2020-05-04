@@ -21,6 +21,11 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+        </dependency>
         <!-- SLF4J -->
         <dependency>
             <groupId>org.slf4j</groupId>

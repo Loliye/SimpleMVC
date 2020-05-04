@@ -8,5 +8,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface HandlerInvoker
 {
-    void invokerHandler(HttpServletRequest request, HttpServletResponse response,Handler handler);
+    /**
+     * 处理具体的业务方法
+     *
+     * @param request
+     * @param response
+     * @param handler
+     */
+    void invokerHandler(HttpServletRequest request, HttpServletResponse response, Handler handler);
 }

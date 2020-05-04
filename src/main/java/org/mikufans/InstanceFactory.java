@@ -5,6 +5,14 @@ import org.apache.commons.lang.StringUtils;
 import org.mikufans.core.ClassScanner;
 import org.mikufans.core.ConfigHelper;
 import org.mikufans.core.impl.StandardClassScanner;
+import org.mikufans.mvc.HandlerExceptionResolver;
+import org.mikufans.mvc.HandlerInvoker;
+import org.mikufans.mvc.HandlerMapping;
+import org.mikufans.mvc.ViewResolver;
+import org.mikufans.mvc.impl.StandardHandlerExceptionResolver;
+import org.mikufans.mvc.impl.StandardHandlerInvoker;
+import org.mikufans.mvc.impl.StandardHandlerMapping;
+import org.mikufans.mvc.impl.StandardViewResolver;
 import org.mikufans.util.ClassUtil;
 
 import java.util.Map;
@@ -22,6 +30,13 @@ public class InstanceFactory
 
     private static final String CLASS_SCANNER = "simple.class_scanner";
 
+    private static final String HANDLER_INVOKER="simple.handler_invoker";
+
+    private static final String HANDLER_MAPPING="simple.handler_mapping";
+
+    private static final String VIEW_RESOLVER="simple.view_resolver";
+
+    private static final String HANDLER_EXCEPTION_RESOLVER="simple.handler_exception_resolver";
 
     /**
      * 获取各个处理器实例对象
@@ -69,6 +84,23 @@ public class InstanceFactory
         return getInstance(CLASS_SCANNER, StandardClassScanner.class);
     }
 
-    public static
+    public static HandlerInvoker getHandlerInvoker()
+    {
+        return getInstance(HANDLER_INVOKER, StandardHandlerInvoker.class);
+    }
 
+    public static HandlerMapping getHandlerMapping()
+    {
+        return getInstance(HANDLER_MAPPING, StandardHandlerMapping.class);
+    }
+
+    public static ViewResolver getViewResolver()
+    {
+        return getInstance(VIEW_RESOLVER, StandardViewResolver.class);
+    }
+
+    public static HandlerExceptionResolver getHandlerExceptionResolver()
+    {
+        return getInstance(HANDLER_EXCEPTION_RESOLVER, StandardHandlerExceptionResolver.class);
+    }
 }

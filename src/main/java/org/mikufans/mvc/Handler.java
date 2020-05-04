@@ -24,7 +24,7 @@ public class Handler
         return requestClass;
     }
 
-    public Method getReqeustMethod()
+    public Method getRequestMethod()
     {
         return requestMethod;
     }
