@@ -1,6 +1,7 @@
 package org.mikufans.core.impl;
 
 import org.mikufans.core.ClassScanner;
+import org.mikufans.core.impl.support.AnnotationClassTemplate;
 import org.mikufans.core.impl.support.ClassTemplate;
 import org.mikufans.core.impl.support.SupperClassTemplate;
 
@@ -32,7 +33,14 @@ public class StandardClassScanner implements ClassScanner
     @Override
     public List<Class<?>> getClassListByAnnotation(String packageName, Class<? extends Annotation> annotationClass)
     {
-        return null;
+        return new AnnotationClassTemplate(packageName, annotationClass)
+        {
+            @Override
+            public boolean checkAddClass(Class<?> cls)
+            {
+                return cls.isAnnotationPresent(annotationClass);
+            }
+        }.getClassList();
     }
 
     @Override

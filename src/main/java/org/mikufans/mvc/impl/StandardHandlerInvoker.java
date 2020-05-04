@@ -1,13 +1,18 @@
 package org.mikufans.mvc.impl;
 
+import org.apache.commons.collections.MapUtils;
+import org.mikufans.InstanceFactory;
 import org.mikufans.ioc.BeanHelper;
 import org.mikufans.mvc.Handler;
 import org.mikufans.mvc.HandlerInvoker;
+import org.mikufans.mvc.ViewResolver;
+import org.mikufans.mvc.bean.Params;
 import org.mikufans.util.ClassUtil;
 import org.mikufans.util.WebUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +21,9 @@ import java.util.regex.Matcher;
 
 public class StandardHandlerInvoker implements HandlerInvoker
 {
+
+    private ViewResolver viewResolver = InstanceFactory.getViewResolver();
+
     @Override
     public void invokerHandler(HttpServletRequest request, HttpServletResponse response, Handler handler)
     {
@@ -24,10 +32,29 @@ public class StandardHandlerInvoker implements HandlerInvoker
         //获取实例对象
         Object instance = BeanHelper.getBean(requestClass);
         //获取方法的的参数列表
-        List<Object>
+        List<Object> methodParamList = getMethodParamList(request, handler);
+        //参数核对
+        checkParamList(requestMethod, methodParamList);
+
+        Object result = null;
+        //调用对应的方法
+        try
+        {
+            requestMethod.setAccessible(true);
+            result = requestMethod.invoke(instance, methodParamList.toArray());
+        } catch (IllegalAccessException e)
+        {
+            e.printStackTrace();
+        } catch (InvocationTargetException e)
+        {
+            e.printStackTrace();
+        }
+        //解析视图
+        viewResolver.resolveView(request, response, result);
+
     }
 
-    public List<Object> getMethodParamList(HttpServletRequest request, HttpServletResponse response, Handler handler)
+    public List<Object> getMethodParamList(HttpServletRequest request, Handler handler)
     {
         List<Object> paramList = new ArrayList<>();
         Class<?>[] paramTypes = handler.getRequestMethod().getExceptionTypes();
@@ -40,9 +67,12 @@ public class StandardHandlerInvoker implements HandlerInvoker
         } else
         {
             //添加普通请求参数列表
-            Map<String,Object> requestParam= WebUtil
+            Map<String, Object> requestParam = WebUtil.getRequestParamMap(request);
+            if (MapUtils.isNotEmpty(requestParam))
+                paramList.add(new Params(requestParam));
         }
 
+        return paramList;
     }
 
     private List<Object> getPathParamList(Matcher requestMatcher, Class<?>[] paramTypes)
@@ -63,6 +93,16 @@ public class StandardHandlerInvoker implements HandlerInvoker
                 paramList.add(param);
         }
         return paramList;
+    }
+
+    private void checkParamList(Method method, List<Object> paramList)
+    {
+        Class<?>[] paramTypes = method.getParameterTypes();
+        if (paramTypes.length != paramList.size())
+        {
+            String message = String.format("因为参数个数不匹配，所以无法调用 Action 方法！原始参数个数：%d，实际参数个数：%d", paramTypes.length, paramList.size());
+            throw new RuntimeException(message);
+        }
     }
 
 }

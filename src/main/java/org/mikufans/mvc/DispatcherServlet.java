@@ -18,7 +18,7 @@ import java.io.IOException;
 /**
  * 前端请求的分发器
  */
-@WebServlet(urlPatterns = "/", loadOnStartup = 0)
+@WebServlet(urlPatterns = "/*", loadOnStartup = 0)
 public class DispatcherServlet extends HttpServlet
 {
 

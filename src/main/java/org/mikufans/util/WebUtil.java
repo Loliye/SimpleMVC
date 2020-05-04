@@ -3,11 +3,14 @@ package org.mikufans.util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.mikufans.SimpleConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URLDecoder;
+import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -35,6 +38,18 @@ public class WebUtil
         } catch (Exception e)
         {
             log.error("重定向请求出错！", e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void forwardRequest(String path, HttpServletRequest request, HttpServletResponse response)
+    {
+        try
+        {
+            request.getRequestDispatcher(path).forward(request, response);
+        } catch (Exception e)
+        {
+            log.error("转发请求出错！", e);
             throw new RuntimeException(e);
         }
     }
@@ -85,13 +100,42 @@ public class WebUtil
                         }
                     }
                 }
+            } else
+            {
+                Enumeration<String> paramNames = request.getParameterNames();
+                while (paramNames.hasMoreElements())
+                {
+                    String paramsName = paramNames.nextElement();
+                    if (checkParamName(paramsName))
+                    {
+                        String[] paramValues = request.getParameterValues(paramsName);
+                        if (paramValues.length == 1)
+                        {
+                            paramMap.put(paramsName, paramValues[0]);
+                        } else
+                        {
+                            StringBuilder paramValue = new StringBuilder();
+                            for (int i = 0; i < paramValue.length(); i++)
+                            {
+                                paramValue.append(paramValues[i]);
+                                if (i != paramValues.length - 1)
+                                    paramValue.append(String.valueOf((char) 29));
+                            }
+                            paramMap.put(paramsName, paramValue.toString());
+                        }
+
+                    }
+                }
             }
-        } catch (IOException e)
+        } catch (Exception e)
         {
-            e.printStackTrace();
+            log.error("解析request参数出错！", e);
+            throw new RuntimeException(e);
         }
 
+        return paramMap;
     }
+
 
     /**
      * 忽略jquery的缓存参数
@@ -103,4 +147,23 @@ public class WebUtil
     {
         return !paramName.equals("_");
     }
+
+    public static void writeJSON(HttpServletResponse response, Object data)
+    {
+        response.setContentType("application/json");
+        response.setContentType(SimpleConstants.UTF_8);
+
+        try
+        {
+            PrintWriter writer = response.getWriter();
+            writer.write(JsonUtil.toJSON(data));
+            writer.flush();
+            writer.close();
+        } catch (Exception e)
+        {
+            log.error("json数据响应出错！", e);
+            throw new RuntimeException(e);
+        }
+    }
+
 }
