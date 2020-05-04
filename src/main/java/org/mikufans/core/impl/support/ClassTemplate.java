@@ -1,5 +1,6 @@
 package org.mikufans.core.impl.support;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.mikufans.util.ClassUtil;
 import org.slf4j.Logger;
@@ -20,9 +21,10 @@ import java.util.jar.JarFile;
 /**
  * 用于获取类的模板类
  */
+@Slf4j
 public abstract class ClassTemplate
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ClassTemplate.class);
+    //    private static final Logger LOGGER = LoggerFactory.getLogger(ClassTemplate.class);
 
     protected final String packageName;
 
@@ -71,10 +73,7 @@ public abstract class ClassTemplate
                     }
                 }
             }
-        } catch (URISyntaxException e)
-        {
-            e.printStackTrace();
-        } catch (IOException e)
+        } catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -112,7 +111,7 @@ public abstract class ClassTemplate
                     String subPackageName = fileName;
                     if (StringUtils.isNotEmpty(packageName))
                     {
-                        subPackageName = packageName + subPackageName;
+                        subPackageName = packageName + "." + subPackageName;
                     }
 
                     addClass(classList, subPackagePath, subPackageName);
@@ -120,7 +119,7 @@ public abstract class ClassTemplate
             }
         } catch (Exception e)
         {
-            LOGGER.error("添加类出错", e);
+            log.error("添加类出错", e);
         }
     }
 

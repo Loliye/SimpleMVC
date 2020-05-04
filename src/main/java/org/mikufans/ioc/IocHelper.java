@@ -50,7 +50,7 @@ public class IocHelper
                                     beanFiled.setAccessible(true);
                                     //赋于初始值
                                     beanFiled.set(beanInstance, implInstance);
-                                    System.out.println("beanFiled:" + beanFiled.getType());
+//                                    System.out.println("beanFiled:" + beanFiled.getType());
                                 } else throw new InitError("依赖注入出错！" + beanClass.getSimpleName());
                             }
                         }

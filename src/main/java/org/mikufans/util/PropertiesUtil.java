@@ -1,5 +1,6 @@
 package org.mikufans.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -9,9 +10,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+@Slf4j
 public class PropertiesUtil
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(PropertiesUtil.class);
+//    private static final Logger LOGGER = LoggerFactory.getLogger(PropertiesUtil.class);
 
     public static Properties loadProps(String propsPath)
     {
@@ -31,10 +33,10 @@ public class PropertiesUtil
                 properties.load(inputStream);
         } catch (IOException e)
         {
-            LOGGER.error("加载配置文件出错", e);
+            log.error("加载配置文件出错", e);
         } catch (IllegalAccessException e)
         {
-            LOGGER.error("未发现配置文件", e);
+            log.error("未发现配置文件", e);
         } finally
         {
             if (inputStream != null)
@@ -44,7 +46,7 @@ public class PropertiesUtil
                     inputStream.close();
                 } catch (IOException e)
                 {
-                    LOGGER.error("释放资源出错");
+                    log.error("释放资源出错");
                 }
             }
         }

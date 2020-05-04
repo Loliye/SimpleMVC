@@ -23,6 +23,7 @@ public class ControllerHelper
         List<Class<?>> controllerClassList = ClassHelper.getClassListByAnnotation(Controller.class);
         if (CollectionUtils.isNotEmpty(controllerClassList))
         {
+            //正常请求  正则表达式请求
             Map<Requester, Handler> commonMap = new HashMap<>();
             Map<Requester, Handler> regexMap = new HashMap<>();
 

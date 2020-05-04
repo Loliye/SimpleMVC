@@ -1,5 +1,6 @@
 package org.mikufans.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,9 +10,9 @@ import java.net.URL;
 /**
  * class操作工具类
  */
+@Slf4j
 public class ClassUtil
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ClassUtil.class);
 
     public static ClassLoader getClassLoader()
     {
@@ -41,8 +42,8 @@ public class ClassUtil
             cls = Class.forName(className, isInit, getClassLoader());
         } catch (ClassNotFoundException e)
         {
-            System.out.println("class加载出错！");
-            LOGGER.error("class加载出错！", e);
+//            System.out.println("class加载出错！");
+            log.error("class加载出错！", e);
             throw new RuntimeException(e);
         }
         return cls;

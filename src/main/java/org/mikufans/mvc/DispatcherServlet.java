@@ -1,5 +1,6 @@
 package org.mikufans.mvc;
 
+import lombok.extern.slf4j.Slf4j;
 import org.mikufans.InstanceFactory;
 import org.mikufans.SimpleConstants;
 import org.mikufans.util.WebUtil;
@@ -19,10 +20,11 @@ import java.io.IOException;
  * 前端请求的分发器
  */
 @WebServlet(urlPatterns = "/*", loadOnStartup = 0)
+@Slf4j
 public class DispatcherServlet extends HttpServlet
 {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DispatcherServlet.class);
+//    private static final Logger LOGGER = LoggerFactory.getLogger(DispatcherServlet.class);
     private HandlerMapping handlerMapping = InstanceFactory.getHandlerMapping();
     private HandlerInvoker handlerInvoker = InstanceFactory.getHandlerInvoker();
     private HandlerExceptionResolver handlerExceptionResolver = InstanceFactory.getHandlerExceptionResolver();
@@ -33,9 +35,9 @@ public class DispatcherServlet extends HttpServlet
         req.setCharacterEncoding(SimpleConstants.UTF_8);
         String requestMethod = req.getMethod();
         String requestPath = WebUtil.getRequestPath(req);
-        LOGGER.debug("[simple] {}:{}", requestMethod, requestPath);
+        log.debug("[simple] {}:{}", requestMethod, requestPath);
 
-        // 空定向到首页
+        // 空 定向到首页
         if (requestPath.equals("/") || requestPath.equals(""))
         {
             WebUtil.redirectRequest(SimpleConstants.HOME_PAGE, req, resp);

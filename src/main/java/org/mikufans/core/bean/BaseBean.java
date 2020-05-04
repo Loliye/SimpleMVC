@@ -7,7 +7,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 import java.io.Serializable;
 
-public class BaseBean implements Serializable
+public abstract class BaseBean implements Serializable
 {
     @Override
     public int hashCode()

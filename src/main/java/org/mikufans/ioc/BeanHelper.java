@@ -26,7 +26,7 @@ public class BeanHelper
             List<Class<?>> classList = ClassHelper.getClassList();
             for (Class<?> cls : classList)
             {
-                if (cls.isAnnotationPresent(Bean.class)||cls.isAnnotationPresent(Controller.class))
+                if (cls.isAnnotationPresent(Bean.class) || cls.isAnnotationPresent(Controller.class))
                 {
                     Object object = cls.newInstance();
                     beanMap.put(cls, object);
