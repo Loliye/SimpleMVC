@@ -57,7 +57,7 @@ public class StandardHandlerInvoker implements HandlerInvoker
     public List<Object> getMethodParamList(HttpServletRequest request, Handler handler)
     {
         List<Object> paramList = new ArrayList<>();
-        Class<?>[] paramTypes = handler.getRequestMethod().getExceptionTypes();
+        Class<?>[] paramTypes = handler.getRequestMethod().getParameterTypes();
         //添加请求中的参数列表
         paramList.addAll(getPathParamList(handler.getRequestPathMatcher(), paramTypes));
         //todo 处理multi
@@ -100,7 +100,7 @@ public class StandardHandlerInvoker implements HandlerInvoker
         Class<?>[] paramTypes = method.getParameterTypes();
         if (paramTypes.length != paramList.size())
         {
-            String message = String.format("因为参数个数不匹配，所以无法调用 Action 方法！原始参数个数：%d，实际参数个数：%d", paramTypes.length, paramList.size());
+            String message = String.format("因为参数个数不匹配，所以无法调用 request 方法！原始参数个数：%d，实际参数个数：%d", paramTypes.length, paramList.size());
             throw new RuntimeException(message);
         }
     }

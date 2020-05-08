@@ -5,6 +5,6 @@
 </head>
 <body>
 <h2>hello world</h2>
-${test}
+${msg}
 </body>
 </html>

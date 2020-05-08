@@ -4,9 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.mikufans.InstanceFactory;
 import org.mikufans.SimpleConstants;
 import org.mikufans.util.WebUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -19,12 +16,11 @@ import java.io.IOException;
 /**
  * 前端请求的分发器
  */
-@WebServlet(urlPatterns = "/*", loadOnStartup = 0)
+@WebServlet(urlPatterns = "/", loadOnStartup = 0)
 @Slf4j
 public class DispatcherServlet extends HttpServlet
 {
 
-//    private static final Logger LOGGER = LoggerFactory.getLogger(DispatcherServlet.class);
     private HandlerMapping handlerMapping = InstanceFactory.getHandlerMapping();
     private HandlerInvoker handlerInvoker = InstanceFactory.getHandlerInvoker();
     private HandlerExceptionResolver handlerExceptionResolver = InstanceFactory.getHandlerExceptionResolver();

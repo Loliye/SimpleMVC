@@ -39,7 +39,7 @@ public class ContainListener implements ServletContextListener
     private void registerJspServlet(ServletContext context)
     {
         ServletRegistration jspServlet = context.getServletRegistration("jsp");
-        jspServlet.addMapping("/index.jsp");
+        jspServlet.addMapping("/index.jsp","*.jsp");
         String path = SimpleConstants.JSP_PATH;
         if (StringUtils.isNotEmpty(path))
         {

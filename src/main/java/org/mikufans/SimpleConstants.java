@@ -17,5 +17,5 @@ public interface SimpleConstants
 
     String WWW_PATH=ConfigHelper.getString("simple.www_path","/www/");
     String JSP_PATH=ConfigHelper.getString("simple.jsp_path","/WEB-INF/jsp/");
-    String HOME_PAGE=ConfigHelper.getString("simple.home_page","index.jsp");
+    String HOME_PAGE=ConfigHelper.getString("simple.home_page","/index.jsp");
 }

@@ -3,14 +3,10 @@ package org.mikufans.core.impl.support;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.mikufans.util.ClassUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.IOException;
 import java.net.JarURLConnection;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -24,7 +20,6 @@ import java.util.jar.JarFile;
 @Slf4j
 public abstract class ClassTemplate
 {
-    //    private static final Logger LOGGER = LoggerFactory.getLogger(ClassTemplate.class);
 
     protected final String packageName;
 
