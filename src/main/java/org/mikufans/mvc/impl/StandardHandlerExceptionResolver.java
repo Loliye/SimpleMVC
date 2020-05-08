@@ -13,6 +13,7 @@ public class StandardHandlerExceptionResolver implements HandlerExceptionResolve
     public void resolverHandlerException(HttpServletRequest request, HttpServletResponse response, Exception e)
     {
         Throwable cause = e.getCause();
+        //todo  异常分类处理
         if(cause==null)
         {
             log.error(e.getMessage(), e);

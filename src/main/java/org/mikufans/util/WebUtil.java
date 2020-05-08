@@ -3,6 +3,7 @@ package org.mikufans.util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.mikufans.SimpleConstants;
 
 import javax.servlet.http.HttpServletRequest;
@@ -136,6 +137,28 @@ public class WebUtil
         return paramMap;
     }
 
+    /**
+     * 返回页面  携带json数据
+     * @param response
+     * @param data
+     */
+    public static void writeHTML(HttpServletResponse response, Object data)
+    {
+        response.setContentType("text/html");
+        response.setCharacterEncoding(SimpleConstants.UTF_8);
+
+        try
+        {
+            PrintWriter writer=response.getWriter();
+            writer.write(JsonUtil.toJSON(data));
+            writer.flush();
+            writer.close();
+        } catch (IOException e)
+        {
+            log.error("相应json数据出错!",e);
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * 忽略jquery的缓存参数
@@ -148,11 +171,15 @@ public class WebUtil
         return !paramName.equals("_");
     }
 
+    /**
+     * 数据转化为json 响应请求
+     * @param response
+     * @param data
+     */
     public static void writeJSON(HttpServletResponse response, Object data)
     {
         response.setContentType("application/json");
         response.setContentType(SimpleConstants.UTF_8);
-
         try
         {
             PrintWriter writer = response.getWriter();

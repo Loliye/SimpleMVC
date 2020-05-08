@@ -1,12 +1,15 @@
 package org.mikufans.mvc.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.MapUtils;
 import org.mikufans.InstanceFactory;
 import org.mikufans.ioc.BeanHelper;
 import org.mikufans.mvc.Handler;
 import org.mikufans.mvc.HandlerInvoker;
+import org.mikufans.mvc.UploadHelper;
 import org.mikufans.mvc.ViewResolver;
 import org.mikufans.mvc.bean.Params;
+import org.mikufans.mvc.exception.UploadException;
 import org.mikufans.util.ClassUtil;
 import org.mikufans.util.WebUtil;
 
@@ -19,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 
+@Slf4j
 public class StandardHandlerInvoker implements HandlerInvoker
 {
 
@@ -60,10 +64,17 @@ public class StandardHandlerInvoker implements HandlerInvoker
         Class<?>[] paramTypes = handler.getRequestMethod().getParameterTypes();
         //添加请求中的参数列表
         paramList.addAll(getPathParamList(handler.getRequestPathMatcher(), paramTypes));
-        //todo 处理multi
-        if (false)
+        //参数分类  正常请求 上传文件请求
+        if (UploadHelper.isMulitpart(request))
         {
-
+            try
+            {
+                paramList.add(UploadHelper.getMultipartParamList(request));
+            } catch (Exception e)
+            {
+                log.error("添加multipart请求参数出错!", e);
+                throw new UploadException(e);
+            }
         } else
         {
             //添加普通请求参数列表

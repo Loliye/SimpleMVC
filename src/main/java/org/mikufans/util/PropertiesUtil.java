@@ -60,7 +60,8 @@ public class PropertiesUtil
     public static String getString(Properties properties, String key, String defaultValue)
     {
         String value = defaultValue;
-        value = getString(properties, key);
+        if (properties.containsKey(key))
+            value = properties.getProperty(key);
         return value;
     }
 
@@ -75,12 +76,14 @@ public class PropertiesUtil
     public static int getNumber(Properties properties, String key, int defaultValue)
     {
         int value = defaultValue;
-        value = getNumber(properties, key);
+        if(properties.containsKey(key))
+            value= Integer.parseInt(properties.getProperty(key));
         return value;
     }
 
     /**
      * 默认false
+     *
      * @param properties
      * @param key
      * @return

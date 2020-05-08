@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.mikufans.InstanceFactory;
 import org.mikufans.SimpleConstants;
 import org.mikufans.util.WebUtil;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -71,5 +72,6 @@ public class DispatcherServlet extends HttpServlet
     public void init(ServletConfig config) throws ServletException
     {
         ServletContext servletContext = config.getServletContext();
+        UploadHelper.init(servletContext);
     }
 }

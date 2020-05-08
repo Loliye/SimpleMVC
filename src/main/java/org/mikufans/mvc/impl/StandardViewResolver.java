@@ -2,6 +2,7 @@ package org.mikufans.mvc.impl;
 
 import org.apache.commons.collections.MapUtils;
 import org.mikufans.SimpleConstants;
+import org.mikufans.mvc.UploadHelper;
 import org.mikufans.mvc.ViewResolver;
 import org.mikufans.mvc.bean.Result;
 import org.mikufans.mvc.bean.View;
@@ -49,10 +50,11 @@ public class StandardViewResolver implements ViewResolver
         } else
         {
             Result result = (Result) methodResult;
-            //todo 文件的处理
-            if (false)
+            //返回结果  请求为 文件上传  异步请求
+            if (UploadHelper.isMulitpart(request))
             {
-
+                //将数据写入响应中
+                WebUtil.writeHTML(response,result);
             } else
             {
                 //json数据处理
