@@ -5,6 +5,10 @@ import org.apache.commons.lang.StringUtils;
 import org.mikufans.core.ClassScanner;
 import org.mikufans.core.ConfigHelper;
 import org.mikufans.core.impl.StandardClassScanner;
+import org.mikufans.dao.DataAccessor;
+import org.mikufans.dao.impl.StandardDataAccessor;
+import org.mikufans.ds.DataSourceFactory;
+import org.mikufans.ds.StandardDataSourceFactory;
 import org.mikufans.mvc.HandlerExceptionResolver;
 import org.mikufans.mvc.HandlerInvoker;
 import org.mikufans.mvc.HandlerMapping;
@@ -30,13 +34,17 @@ public class InstanceFactory
 
     private static final String CLASS_SCANNER = "simple.class_scanner";
 
-    private static final String HANDLER_INVOKER="simple.handler_invoker";
+    private static final String HANDLER_INVOKER = "simple.handler_invoker";
 
-    private static final String HANDLER_MAPPING="simple.handler_mapping";
+    private static final String HANDLER_MAPPING = "simple.handler_mapping";
 
-    private static final String VIEW_RESOLVER="simple.view_resolver";
+    private static final String VIEW_RESOLVER = "simple.view_resolver";
 
-    private static final String HANDLER_EXCEPTION_RESOLVER="simple.handler_exception_resolver";
+    private static final String HANDLER_EXCEPTION_RESOLVER = "simple.handler_exception_resolver";
+
+    private static final String DATASOURCE_FACTORY = "simple.datasource_factory";
+
+    private static final String DATA_ACCESSOR="simple.data_accessor";
 
     /**
      * 获取各个处理器实例对象
@@ -102,5 +110,15 @@ public class InstanceFactory
     public static HandlerExceptionResolver getHandlerExceptionResolver()
     {
         return getInstance(HANDLER_EXCEPTION_RESOLVER, StandardHandlerExceptionResolver.class);
+    }
+
+    public static DataSourceFactory getDataSourceFactory()
+    {
+        return getInstance(DATASOURCE_FACTORY, StandardDataSourceFactory.class);
+    }
+
+    public static DataAccessor getDataAccessor()
+    {
+        return getInstance(DATA_ACCESSOR, StandardDataAccessor.class);
     }
 }

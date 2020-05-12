@@ -7,7 +7,7 @@ import org.mikufans.core.ClassHelper;
 import org.mikufans.orm.annotation.Column;
 import org.mikufans.orm.annotation.Entity;
 import org.mikufans.orm.annotation.Table;
-
+import org.mikufans.util.MapUtil;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
@@ -85,6 +85,11 @@ public class EntityHelper
         return entityClassFieldMap.get(entityClass);
     }
 
+    public static Map<String, String> getColumnMap(Class<?> entityClass)
+    {
+        return MapUtil.invert(getFieldMap(entityClass));
+    }
+
     public static String getColumnName(Class<?> entityClass, String fieldName)
     {
         String name = getFieldMap(entityClass).get(fieldName);
@@ -106,7 +111,7 @@ public class EntityHelper
         for (int i = 0; matcher.find(); i++)
         {
             builder.replace(matcher.start() + i, matcher.end() + i, "_" + matcher.group().toLowerCase());
-//            System.out.println(matcher.start() + "  " + matcher.end() + "  " + matcher.group());
+            //            System.out.println(matcher.start() + "  " + matcher.end() + "  " + matcher.group());
         }
         if (builder.charAt(0) == '_')
             builder.deleteCharAt(0);

@@ -12,6 +12,11 @@ public interface SimpleConstants
 
     String PK_NAME = "id";
     String PACKAGE_PATH = "simple.app_base_package";
+    String DataBaseType = "simple.jdbc.type";
+    String DRIVER = "simple.jdbc.driver";
+    String URL = "simple.jdbc.url";
+    String username = "simple.jdbc.username";
+    String password = "simple.jdbc.password";
 
 
     String WWW_PATH = ConfigHelper.getString("simple.www_path", "/www/");
