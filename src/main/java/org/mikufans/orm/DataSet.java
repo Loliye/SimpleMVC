@@ -26,6 +26,28 @@ public class DataSet
     }
 
     /**
+     * 查询多条数据  并且封装为相应的list实体类
+     */
+    public static <T> List<T> selectList(Class<T> entityClass)
+    {
+        return selectListWithConditionAndSort(entityClass, "", "");
+    }
+
+    public static <T> List<T> selectListWithCondition(Class<T> entityClass, String condition, Object... params)
+    {
+        return selectListWithConditionAndSort(entityClass, condition, "", params);
+    }
+
+    /**
+     * 查询多条数据，并转为相应类型的实体列表（带有排序方式）
+     */
+    public static <T> List<T> selectListWithSort(Class<T> entityClass, String sort)
+    {
+        return selectListWithConditionAndSort(entityClass, "", sort);
+    }
+
+
+    /**
      * 根据条件查询多条数据
      *
      * @param entityClass 返回对象类型
@@ -72,6 +94,41 @@ public class DataSet
     {
         String sql = SqlHelper.generateSelectSqlForPager(pageNumber, pageSize, entityClass, condition, sort);
         return DatabaseHelper.queryEntityList(entityClass, sql, params);
+    }
+
+
+    /**
+     * 查询多条数据，并转为映射
+     */
+    public static <T> Map<Long, T> selectMap(Class<T> entityClass, String pkName)
+    {
+        return selectMapWithPK(entityClass, pkName, "", "");
+    }
+
+    /**
+     * 查询多条数据，并转为映射（带有查询条件与查询参数）
+     */
+    public static <T> Map<Long, T> selectMapWithCondition(Class<T> entityClass, String pkName, String condition, Object... params)
+    {
+        return selectMapWithPK(entityClass, pkName, condition, "", params);
+    }
+
+    /**
+     * 查询多条数据，并转为映射（带有排序方式与查询参数）
+     *
+     * @since 2.3.3
+     */
+    public static <T> Map<Long, T> selectMapWithSort(Class<T> entityClass, String pkName, String sort)
+    {
+        return selectMapWithPK(entityClass, pkName, "", sort);
+    }
+
+    /**
+     * 查询多条数据，并转为映射（带有查询条件、排序方式与查询参数）
+     */
+    public static <T> Map<Long, T> selectMapWithConditionAndSort(Class<T> entityClass, String pkName, String condition, String sort, Object... params)
+    {
+        return selectMapWithPK(entityClass, pkName, condition, sort, params);
     }
 
     /**
@@ -177,6 +234,31 @@ public class DataSet
         String condition = pkName + " = ?";
         Object[] params = {ObjectUtil.getFieldValue(entityObject, pkName)};
         return update(entityClass, fieldMap, condition, params);
+    }
+
+
+    /**
+     * 删除
+     */
+    public static boolean delete(Class<?> entityClass, String condition, Object... params)
+    {
+        String sql = SqlHelper.generateDeleteSql(entityClass, condition);
+        int rows = DatabaseHelper.update(sql, params);
+        return rows > 0;
+    }
+
+    /**
+     * 删除实体对象
+     */
+    public static boolean delete(Object object, String pkName)
+    {
+        if (object == null)
+            throw new IllegalArgumentException();
+
+        Class<?> entityClass = object.getClass();
+        String condition = pkName + " = ?";
+        Object[] params = {ObjectUtil.getFieldValue(object, pkName)};
+        return delete(entityClass, condition, params);
     }
 
 
