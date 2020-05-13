@@ -102,7 +102,7 @@ public class EntityHelper
      * @param str
      * @return
      */
-    public static String HumpToUnderline(String str)
+    private static String HumpToUnderline(String str)
     {
         Matcher matcher = Pattern.compile("[A-Z]").matcher(str);
         StringBuilder builder = new StringBuilder(str);
