@@ -20,11 +20,17 @@ public class IndexController
     @Request.Post("/login")
     public View login(Params params)
     {
-        String username=params.getString("username");
-        String password=params.getString("password");
-        if("admin".equals(username)&&"123456".equals(password))
-            return new View("index.jsp").data("msg","success");
-        return new View("index.jsp").data("msg","error");
+        String username = params.getString("username");
+        String password = params.getString("password");
+        if ("admin".equals(username) && "123456".equals(password))
+            return new View("index.jsp").data("msg", "success");
+        return new View("index.jsp").data("msg", "error");
     }
 
+    @Request.Get("/test/{id}")
+    public View test(long id)
+    {
+        System.out.println(id);
+        return new View("index.jsp").data("msg","test");
+    }
 }

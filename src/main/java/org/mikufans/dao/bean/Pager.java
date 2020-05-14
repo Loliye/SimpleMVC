@@ -1,8 +1,10 @@
 package org.mikufans.dao.bean;
 
+import org.mikufans.core.bean.BaseBean;
+
 import java.util.List;
 
-public class Pager<T>
+public class Pager<T> extends BaseBean
 {
     private int pageNumber;     //页面编号
     private int pageSize;       //每页条数
