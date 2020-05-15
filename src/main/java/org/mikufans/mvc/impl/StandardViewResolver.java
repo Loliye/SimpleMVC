@@ -38,6 +38,7 @@ public class StandardViewResolver implements ViewResolver
                 //转发处理
                 String path = SimpleConstants.JSP_PATH + view.getPath();
                 Map<String, Object> data = view.getData();
+                //解析参数
                 if (MapUtils.isNotEmpty(data))
                 {
                     for (Map.Entry<String, Object> entry : data.entrySet())

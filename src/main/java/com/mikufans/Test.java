@@ -9,9 +9,9 @@ public class Test
     public int id;
     public String name;
 
-    public Test()
-    {
-    }
+    public final double a1=Math.random();
+    public static double s2=Math.random();
+
 
     public void sout(String content)
     {
@@ -42,5 +42,18 @@ public class Test
     {
         this.id = id;
         this.name = name;
+    }
+
+    public Test()
+    {}
+
+    public static void main(String[] args)
+    {
+        Test test1=new Test();
+        Test test2=new Test();
+        System.out.println(test1.a1);
+        System.out.println(test1.s2);
+        System.out.println(test2.a1);
+        System.out.println(test2.s2);
     }
 }

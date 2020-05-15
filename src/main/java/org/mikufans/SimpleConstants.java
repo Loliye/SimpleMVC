@@ -9,6 +9,7 @@ public interface SimpleConstants
     String CONFIG_PROPS = "simple.properties";
     String SQL_PROPS = "simple-sql.properties";
 
+    String PLUGIN_PAGEAGE = "simple.plugin";
 
     String PK_NAME = "id";
     String PACKAGE_PATH = "simple.app_base_package";
