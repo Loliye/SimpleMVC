@@ -18,6 +18,7 @@ public interface SimpleConstants
     String URL = "simple.jdbc.url";
     String username = "simple.jdbc.username";
     String password = "simple.jdbc.password";
+    String PLUGIN_PACKAGE = "simple.plugin";
 
 
     String WWW_PATH = ConfigHelper.getString("simple.www_path", "/www/");
