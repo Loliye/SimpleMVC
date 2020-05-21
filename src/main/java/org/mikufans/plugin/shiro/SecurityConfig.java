@@ -2,8 +2,6 @@ package org.mikufans.plugin.shiro;
 
 import lombok.extern.slf4j.Slf4j;
 import org.mikufans.core.ConfigHelper;
-import org.mikufans.plugin.shiro.init.SecurityFitler;
-import sun.security.krb5.Config;
 
 @Slf4j
 public final class SecurityConfig

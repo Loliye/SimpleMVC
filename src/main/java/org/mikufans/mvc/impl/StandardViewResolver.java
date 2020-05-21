@@ -32,11 +32,13 @@ public class StandardViewResolver implements ViewResolver
             if (view.isRedirect())
             {
                 String path = view.getPath();
+//                System.out.println(path);
                 WebUtil.redirectRequest(path, request, response);
             } else
             {
                 //转发处理
                 String path = SimpleConstants.JSP_PATH + view.getPath();
+//                System.out.println(path);
                 Map<String, Object> data = view.getData();
                 //解析参数
                 if (MapUtils.isNotEmpty(data))

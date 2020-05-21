@@ -20,7 +20,7 @@ public class BeanHelper
     //初始化ioc容器
     static
     {
-        //todo  扫描包 service controller mapper
+        //todo  扫描包 services controller mapper
         try
         {
             List<Class<?>> classList = ClassHelper.getClassList();

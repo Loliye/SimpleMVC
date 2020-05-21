@@ -18,6 +18,6 @@
         <!--<location>/WEB-INF/jsp/error/500.jsp</location>-->
     <!--</error-page>-->
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>/views/login.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

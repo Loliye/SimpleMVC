@@ -1,6 +1,7 @@
 package org.mikufans.core;
 
 import org.mikufans.InstanceFactory;
+import org.mikufans.SimpleConstants;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public class ClassHelper
 {
-    private static final String basePackage = ConfigHelper.getString("simple.app_base_package");
+    private static final String basePackage = ConfigHelper.getString(SimpleConstants.PACKAGE_PATH);
 
     private static final ClassScanner classScanner = InstanceFactory.getClassScanner();
 

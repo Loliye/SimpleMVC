@@ -14,7 +14,7 @@ public class SecurityInit implements ServletContainerInitializer
     public void onStartup(Set<Class<?>> c, ServletContext ctx) throws ServletException
     {
         ctx.addListener(EnvironmentLoaderListener.class);
-        FilterRegistration.Dynamic shiroFilter = ctx.addFilter("ShiroFilter", SecurityFitler.class);
+        FilterRegistration.Dynamic shiroFilter = ctx.addFilter("ShiroFilter", SecurityFilter.class);
         shiroFilter.addMappingForUrlPatterns(null, false, "/*");
     }
 }
