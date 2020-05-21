@@ -25,4 +25,7 @@ public interface SimpleConstants
     String JSP_PATH = ConfigHelper.getString("simple.jsp_path", "/");
     String HOME_PAGE = ConfigHelper.getString("simple.home_page", "/index.jsp");
     int UPLOAD_LIMIT = ConfigHelper.getInt("simple.upload_limit", 10);
+
+
+    String DRUID_URL=ConfigHelper.getString("druid.url","/druid/**");
 }

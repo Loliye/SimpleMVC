@@ -1,13 +1,10 @@
-package com.mikufans;
+package com.mikufans.test;
 
 import org.mikufans.HelperLoader;
-import org.mikufans.core.ClassScanner;
 import org.mikufans.core.bean.BaseBean;
-import org.mikufans.core.impl.StandardClassScanner;
 import org.mikufans.ioc.BeanHelper;
 import org.mikufans.ioc.annotation.Autowired;
 import org.mikufans.ioc.annotation.Bean;
-import org.mikufans.util.ClassUtil;
 
 @Bean
 public class main extends BaseBean

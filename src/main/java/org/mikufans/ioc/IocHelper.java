@@ -1,6 +1,5 @@
 package org.mikufans.ioc;
 
-import com.mikufans.Test;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.mikufans.core.ClassHelper;
@@ -8,7 +7,6 @@ import org.mikufans.core.exception.InitError;
 import org.mikufans.ioc.annotation.Autowired;
 import org.mikufans.ioc.annotation.Impl;
 
-import javax.servlet.annotation.WebServlet;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;

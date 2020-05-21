@@ -1,7 +1,5 @@
-package com.mikufans;
+package com.mikufans.test;
 
-import lombok.var;
-import org.mikufans.core.bean.BaseBean;
 import org.mikufans.ioc.annotation.Bean;
 import sun.reflect.CallerSensitive;
 import sun.reflect.Reflection;

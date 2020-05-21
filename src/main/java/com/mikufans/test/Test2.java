@@ -1,7 +1,7 @@
-package com.mikufans;
+package com.mikufans.test;
 
+import com.mikufans.test.Test;
 import org.mikufans.ioc.annotation.Autowired;
-import org.mikufans.ioc.annotation.Bean;
 
 import java.lang.reflect.Field;
 

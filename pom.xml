@@ -20,6 +20,14 @@
 
     <dependencies>
 
+
+        <!--druid-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.1.14</version>
+        </dependency>
+
         <!--shiro-->
         <dependency>
             <groupId>org.apache.shiro</groupId>

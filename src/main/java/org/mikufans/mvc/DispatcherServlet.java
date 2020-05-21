@@ -41,6 +41,12 @@ public class DispatcherServlet extends HttpServlet
             return;
         }
 
+//        if(requestPath.endsWith(".jsp"))
+//        {
+//            WebUtil.redirectRequest(requestPath,req,resp);
+//            return;
+//        }
+
         if (requestPath.endsWith("/"))
             requestPath = requestPath.substring(0, requestPath.length() - 1);
         //获取handler

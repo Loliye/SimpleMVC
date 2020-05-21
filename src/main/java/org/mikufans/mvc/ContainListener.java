@@ -29,6 +29,7 @@ public class ContainListener implements ServletContextListener
         ServletRegistration defaultServlet = servletContext.getServletRegistration("default");
         defaultServlet.addMapping("/index.html");
         defaultServlet.addMapping("/favicon.ico");
+        defaultServlet.addMapping("*.css","*.js","*.ico","*.png","*.jpg");
         String path = SimpleConstants.WWW_PATH;
         if (StringUtils.isNotEmpty(path))
         {
