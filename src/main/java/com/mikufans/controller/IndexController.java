@@ -52,16 +52,34 @@ public class IndexController
     }
 
     @Request.Post("/uploadFile")
-    public View uploadFile(Params params,Multiparts multiparts)
+    public View uploadFile(Params params, Multiparts multiparts)
     {
         Multipart multipart = multiparts.getOne();
-//        System.out.println(DataContext.getRequest().getRealPath(""));
-//        System.out.println(DataContext.getServletContext().getRealPath(""));
-//        System.out.println(DataContext.getRequest().getServletContext().getRealPath(""));
-        UploadHelper.uploadFile(new File("D:\\ruoyi").getAbsolutePath(),multipart);
-        return new View("index.jsp").data("msg",multipart.getFileName());
+        //        System.out.println(DataContext.getRequest().getRealPath(""));
+        //        System.out.println(DataContext.getServletContext().getRealPath(""));
+        //        System.out.println(DataContext.getRequest().getServletContext().getRealPath(""));
+        UploadHelper.uploadFile(DataContext.getServletContext().getRealPath(""), multipart);
+        return new View("index.jsp").data("msg", multipart.getFileName());
     }
 
+    @Request.Get("/image/delete")
+    public View delete(Params params)
+    {
+        String year=params.getString("year");
+        String moon=params.getString("moon");
+        String id=params.getString("id");
+        String path = DataContext.getServletContext().getRealPath("") + year + File.separator + moon + File.separator + id;
+        System.out.println(path);
+        File file = new File(path);
+        boolean delete = file.delete();
+        return new View("yes.jsp").data("msg", delete);
+    }
+
+    public static void main(String[] args)
+    {
+        boolean delete = new File("D:\\ruoyi\\2020\\6\\3a3b01ec5e9419cde5c2eea088f0955d29b6f652.jpg").delete();
+        System.out.println(delete);
+    }
 
     //    @Request.Get("/loginDemo")
     //    public Result loginDemo(Params params)
