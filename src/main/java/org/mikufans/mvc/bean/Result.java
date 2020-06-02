@@ -13,6 +13,37 @@ public class Result extends BaseBean
         this.success = success;
     }
 
+    public Result()
+    {
+    }
+
+    public Result(boolean success, int error, Object data)
+    {
+        this.success = success;
+        this.error = error;
+        this.data = data;
+    }
+
+    public static Result Error(Object data)
+    {
+        return new Result(false, 500, data);
+    }
+
+    public static Result Error(int error, Object data)
+    {
+        return new Result(false, error, data);
+    }
+
+    public static Result Success(Object data)
+    {
+        return new Result(true, 200, data);
+    }
+
+    public static Result Success()
+    {
+        return new Result(true, 200, "success");
+    }
+
     public Result error(int error)
     {
         this.error = error;

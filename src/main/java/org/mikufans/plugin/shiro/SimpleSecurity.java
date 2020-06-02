@@ -37,4 +37,6 @@ public interface SimpleSecurity
      * @return 权限名集合
      */
     Set<String> getPermissionNameSet(String roleName);
+
+
 }

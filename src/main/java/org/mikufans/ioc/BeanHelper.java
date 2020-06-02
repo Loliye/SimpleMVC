@@ -1,8 +1,10 @@
 package org.mikufans.ioc;
 
+import org.mikufans.aop.annotation.Aspect;
 import org.mikufans.core.ClassHelper;
 import org.mikufans.ioc.annotation.Bean;
 import org.mikufans.mvc.annotation.Controller;
+import org.mikufans.transaction.annotation.Service;
 import sun.nio.ch.IOStatus;
 
 import java.io.ObjectInputStream;
@@ -26,7 +28,8 @@ public class BeanHelper
             List<Class<?>> classList = ClassHelper.getClassList();
             for (Class<?> cls : classList)
             {
-                if (cls.isAnnotationPresent(Bean.class) || cls.isAnnotationPresent(Controller.class))
+                if (cls.isAnnotationPresent(Bean.class) || cls.isAnnotationPresent(Controller.class)
+                        || cls.isAnnotationPresent(Service.class) || cls.isAnnotationPresent(Aspect.class))
                 {
                     Object object = cls.newInstance();
                     beanMap.put(cls, object);

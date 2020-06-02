@@ -33,7 +33,7 @@ public class StandardDataAccessor implements DataAccessor
 
     private static void printSQL(String sql)
     {
-        log.info("[Simple] SQL-{}", sql);
+        log.info("[Simple] SQL->{}", sql);
     }
 
     @Override
@@ -61,6 +61,7 @@ public class StandardDataAccessor implements DataAccessor
     public <T> List<T> queryEntityList(Class<T> entityClass, String sql, Object... params)
     {
         List<T> result;
+        printSQL(sql);
         try
         {
             Map<String, String> columnMap = EntityHelper.getColumnMap(entityClass);
@@ -68,6 +69,7 @@ public class StandardDataAccessor implements DataAccessor
                 result = queryRunner.query(sql, new BeanListHandler<>(entityClass, new BasicRowProcessor(
                         new BeanProcessor(columnMap))), params);
             else result = queryRunner.query(sql, new BeanListHandler<>(entityClass), params);
+
 
         } catch (SQLException e)
         {

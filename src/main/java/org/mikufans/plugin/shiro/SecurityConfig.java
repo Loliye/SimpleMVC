@@ -1,6 +1,8 @@
 package org.mikufans.plugin.shiro;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mikufans.core.ClassHelper;
+import org.mikufans.core.ClassScanner;
 import org.mikufans.core.ConfigHelper;
 
 @Slf4j
@@ -14,26 +16,39 @@ public final class SecurityConfig
     public static SimpleSecurity getSimpleSecurity()
     {
         String clsName = ConfigHelper.getString(SecurityConstant.SIMPLE_SECURITY);
+        String name = "org.mikufans.plugin.shiro.SimpleSecurity";
+
         Class<?> cls = null;
         try
         {
-            cls = Class.forName(clsName);
+            cls = Class.forName(name);
         } catch (ClassNotFoundException e)
         {
-            log.error("无法从 " + SecurityConstant.SIMPLE_SECURITY + " 配置中找到对应的类", e);
+            log.error("未找到 " + name + " 相关实现类!");
+            try
+            {
+                cls = Class.forName(clsName);
+            } catch (ClassNotFoundException e1)
+            {
+                log.error("无法从 " + SecurityConstant.SIMPLE_SECURITY + " 配置中找到对应的类", e);
+            }
         }
-        SimpleSecurity smartSecurity = null;
+
+
+        SimpleSecurity simpleSecurity = null;
         if (cls != null)
         {
             try
             {
-                smartSecurity = (SimpleSecurity) cls.newInstance();
+                simpleSecurity = (SimpleSecurity) ClassHelper.getClassListBySuper(SimpleSecurity.class).get(0).newInstance();
+                //                simpleSecurity = (SimpleSecurity) cls.newInstance();
+                System.out.println(simpleSecurity);
             } catch (Exception e)
             {
                 log.error(SimpleSecurity.class.getSimpleName() + " 实例化异常", e);
             }
         }
-        return smartSecurity;
+        return simpleSecurity;
     }
 
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException

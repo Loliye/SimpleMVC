@@ -54,7 +54,7 @@ public class StandardViewResolver implements ViewResolver
         {
             Result result = (Result) methodResult;
             //返回结果  请求为 文件上传  异步请求
-            if (UploadHelper.isMulitpart(request))
+            if (UploadHelper.isMultipart(request))
             {
                 //将数据写入响应中
                 WebUtil.writeHTML(response,result);

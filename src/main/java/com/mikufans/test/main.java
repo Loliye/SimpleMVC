@@ -5,8 +5,9 @@ import org.mikufans.core.bean.BaseBean;
 import org.mikufans.ioc.BeanHelper;
 import org.mikufans.ioc.annotation.Autowired;
 import org.mikufans.ioc.annotation.Bean;
+import org.mikufans.transaction.annotation.Service;
 
-@Bean
+@Service
 public class main extends BaseBean
 {
     @Autowired
@@ -23,7 +24,7 @@ public class main extends BaseBean
     public void test() throws ClassNotFoundException, IllegalAccessException, InstantiationException
     {
         HelperLoader.init();
-        System.out.println(BeanHelper.getBean(Test.class));
+        System.out.println(BeanHelper.getBean(Test2.class));
         System.out.println(this.test);
     }
 

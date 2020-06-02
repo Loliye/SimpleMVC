@@ -43,5 +43,9 @@ public class Params
         return Double.valueOf(getString(name));
     }
 
+    public boolean getBoolean(String name)
+    {
+        return Boolean.valueOf(getString(name));
+    }
 
 }

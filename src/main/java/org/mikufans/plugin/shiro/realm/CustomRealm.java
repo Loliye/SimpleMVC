@@ -1,18 +1,18 @@
 package org.mikufans.plugin.shiro.realm;
 
-import javafx.scene.effect.SepiaTone;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.authc.credential.PasswordMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.SimplePrincipalCollection;
+import org.mikufans.plugin.shiro.CredentialsMatcher;
 import org.mikufans.plugin.shiro.SimpleSecurity;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Slf4j
 public class CustomRealm extends AuthorizingRealm
 {
 
@@ -20,9 +20,10 @@ public class CustomRealm extends AuthorizingRealm
 
     public CustomRealm(SimpleSecurity security)
     {
+        //        this.security=new SecurityConfig();
         this.security = security;
         super.setName("custom");
-        super.setCredentialsMatcher(new PasswordMatcher());
+        super.setCredentialsMatcher(new CredentialsMatcher());
     }
 
     /**
@@ -57,7 +58,8 @@ public class CustomRealm extends AuthorizingRealm
 
 
     /**
-     * 认证
+     * 登陆认证
+     * todo  待优化
      *
      * @param token
      * @return
@@ -68,11 +70,12 @@ public class CustomRealm extends AuthorizingRealm
     {
         if (token == null)
             throw new AuthenticationException("参数 token 非法!");
-        String username = ((UsernamePasswordToken) token).getUsername();
-        String password = security.getPassword(username);
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo();
-        info.setPrincipals(new SimplePrincipalCollection(username, super.getName()));
-        info.setCredentials(password);
+        String loginName = ((UsernamePasswordToken) token).getUsername();
+        //        System.out.println(loginName);
+        String password = String.valueOf(((UsernamePasswordToken) token).getPassword());
+        String sqlPassword = security.getPassword(loginName);
+
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo("", password, getName());
         return info;
     }
 }

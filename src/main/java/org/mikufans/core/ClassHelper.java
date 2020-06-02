@@ -2,6 +2,7 @@ package org.mikufans.core;
 
 import org.mikufans.InstanceFactory;
 import org.mikufans.SimpleConstants;
+import org.mikufans.plugin.shiro.SimpleSecurity;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -30,4 +31,10 @@ public class ClassHelper
         return classScanner.getClassListByAnnotation(basePackage, annotationClass);
     }
 
+    public static void main(String[] args)
+    {
+        List<Class<?>> classList = getClassListBySuper(SimpleSecurity.class);
+        for(Class<?> cls:classList)
+            System.out.println(cls);
+    }
 }

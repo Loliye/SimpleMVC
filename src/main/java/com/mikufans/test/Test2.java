@@ -2,10 +2,11 @@ package com.mikufans.test;
 
 import com.mikufans.test.Test;
 import org.mikufans.ioc.annotation.Autowired;
+import org.mikufans.transaction.annotation.Service;
 
 import java.lang.reflect.Field;
 
-//@Bean
+@Service
 public class Test2
 {
     @Autowired

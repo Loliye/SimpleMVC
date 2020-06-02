@@ -15,5 +15,5 @@ public interface HandlerInvoker
      * @param response
      * @param handler
      */
-    void invokerHandler(HttpServletRequest request, HttpServletResponse response, Handler handler);
+    void invokerHandler(HttpServletRequest request, HttpServletResponse response, Handler handler)  throws Exception;
 }

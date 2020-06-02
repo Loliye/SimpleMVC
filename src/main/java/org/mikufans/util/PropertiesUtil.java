@@ -2,9 +2,11 @@ package org.mikufans.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.mikufans.SimpleConstants;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 @Slf4j
@@ -26,7 +28,7 @@ public class PropertiesUtil
 
             inputStream = ClassUtil.getClassLoader().getResourceAsStream(propsPath);
             if (inputStream != null)
-                properties.load(inputStream);
+                properties.load(new InputStreamReader(inputStream,SimpleConstants.UTF_8));
         } catch (IOException e)
         {
             log.error("加载配置文件出错", e);
@@ -47,6 +49,12 @@ public class PropertiesUtil
             }
         }
         return properties;
+    }
+
+    public static void main(String[] args)
+    {
+        System.out.println(loadProps("messages.properties").getProperty("not.null"));
+        System.out.println(loadProps(SimpleConstants.CONFIG_PROPS));
     }
 
     public static String getString(Properties properties, String key)

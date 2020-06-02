@@ -18,30 +18,32 @@ import org.omg.CORBA.OBJ_ADAPTER;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 public class UploadHelper
 {
     private static ServletFileUpload fileUpload;
 
-
     /**
      * 初始化 UploadHelper
+     *
      * @param servletContext
      */
     public static void init(ServletContext servletContext)
     {
         //tomcat的work目录
         File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+//        File repository = new File(DataContext.getServletContext().getRealPath("/WEB-INF/tmpfiles"));
+        if (!repository.exists())
+            repository.mkdir();
         fileUpload = new ServletFileUpload(new DiskFileItemFactory(DiskFileItemFactory.DEFAULT_SIZE_THRESHOLD, repository));
+        fileUpload.setHeaderEncoding("utf-8");
         //上传限制
         int uploadLimit = SimpleConstants.UPLOAD_LIMIT;
         if (uploadLimit != 0)
             fileUpload.setSizeMax(uploadLimit * 1024 * 1024);
+
     }
 
     /**
@@ -50,7 +52,7 @@ public class UploadHelper
      * @param request
      * @return
      */
-    public static boolean isMulitpart(HttpServletRequest request)
+    public static boolean isMultipart(HttpServletRequest request)
     {
         return ServletFileUpload.isMultipartContent(request);
     }
@@ -119,7 +121,8 @@ public class UploadHelper
             if (multipart == null)
                 return;
             //创建文件绝对路径
-            String filePath = basePath + multipart.getFileName();
+            String filePath = createRealFilePath(basePath, multipart.getFileName());
+            System.out.println(filePath);
             FileUtil.createFile(filePath);
 
             //执行流  复制操作
@@ -132,6 +135,45 @@ public class UploadHelper
             e.printStackTrace();
         }
     }
+
+    /**
+     * 根据基本路径和文件名称生成真实文件路径，基本路径\\年\\月\\fileName
+     *
+     * @param basePath
+     * @param fileName
+     * @return
+     */
+    private static String createRealFilePath(String basePath, String fileName)
+    {
+        Calendar today = Calendar.getInstance();
+        String year = String.valueOf(today.get(Calendar.YEAR));
+        String month = String.valueOf(today.get(Calendar.MONTH) + 1);
+
+
+        String upPath = basePath + File.separator + year + File.separator + month + File.separator;
+        File uploadFolder = new File(upPath);
+        if (!uploadFolder.exists())
+        {
+            uploadFolder.mkdirs();
+        }
+
+        String realFilePath = upPath + fileName;
+
+        return realFilePath;
+    }
+
+
+    /**
+     * 默认上传至webapp/uploadfiles
+     *
+     * @param multipart
+     */
+    public static void uploadFile(Multipart multipart)
+    {
+        String realPath = DataContext.getServletContext().getRealPath(SimpleConstants.UPLOAD_PATH);
+        uploadFile(realPath, multipart);
+    }
+
 
     public static void uploadFiles(String basePath, Multiparts multiparts)
     {
