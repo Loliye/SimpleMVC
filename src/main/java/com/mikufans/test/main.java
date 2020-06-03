@@ -28,5 +28,14 @@ public class main extends BaseBean
         System.out.println(this.test);
     }
 
+    @org.junit.Test
+    public void test2()
+    {
+        U u = new UImpl();
+        UBean u1 = u.getU();
+        System.out.println(u1);
+        System.out.println(u1.getName());
+
+    }
 
 }

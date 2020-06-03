@@ -17,8 +17,8 @@ public class SecurityInit implements ServletContainerInitializer
         /**
          * 开启shiro的filter
          */
-        //        ctx.addListener(EnvironmentLoaderListener.class);
-//        FilterRegistration.Dynamic shiroFilter = ctx.addFilter("ShiroFilter", SecurityFilter.class);
-//        shiroFilter.addMappingForUrlPatterns(null, false, "/*");
+        ctx.addListener(EnvironmentLoaderListener.class);
+        FilterRegistration.Dynamic shiroFilter = ctx.addFilter("ShiroFilter", SecurityFilter.class);
+        shiroFilter.addMappingForUrlPatterns(null, false, "/*");
     }
 }

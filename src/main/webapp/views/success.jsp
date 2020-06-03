@@ -1,3 +1,4 @@
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: x1448
@@ -17,6 +18,22 @@
     <input type="submit" value="提交">
 </form>
 
+
+<h3>shiro test</h3>
+<%--Shiro标签的使用--%>
+您当前用户名: <shiro:principal/> <br/>
+<shiro:hasRole name="admin">
+    admin你好!<br />
+</shiro:hasRole>
+<shiro:hasRole name="user">
+    user你好！<br />
+</shiro:hasRole>
+<shiro:hasPermission name="product.view">
+    product.view<br />
+</shiro:hasPermission>
+<shiro:hasPermission name="product.create">
+    product.create<br/>
+</shiro:hasPermission>
 <h4>${msg}</h4>
 </body>
 </html>

@@ -25,15 +25,19 @@ public final class SecurityConfig
         } catch (ClassNotFoundException e)
         {
             log.error("未找到 " + name + " 相关实现类!");
+
+        }
+
+        if (cls == null)
+        {
             try
             {
                 cls = Class.forName(clsName);
-            } catch (ClassNotFoundException e1)
+            } catch (ClassNotFoundException e)
             {
                 log.error("无法从 " + SecurityConstant.SIMPLE_SECURITY + " 配置中找到对应的类", e);
             }
         }
-
 
         SimpleSecurity simpleSecurity = null;
         if (cls != null)

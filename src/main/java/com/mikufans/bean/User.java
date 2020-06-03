@@ -1,14 +1,14 @@
 package com.mikufans.bean;
 
 import lombok.Data;
+import lombok.ToString;
 import org.mikufans.core.bean.BaseBean;
 import org.mikufans.orm.annotation.Entity;
+import org.mikufans.plugin.shiro.ShiroUser;
 
 @Entity
 @Data
-public class User extends BaseBean
+@ToString
+public class User extends ShiroUser
 {
-    private int id;
-    private String name;
-    private String password;
 }
